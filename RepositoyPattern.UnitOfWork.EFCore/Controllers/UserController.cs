@@ -1,0 +1,49 @@
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using RepositoyPattern.UnitOfWork.EFCore.Models;
+using RepositoyPattern.UnitOfWork.EFCore.Services;
+
+namespace RepositoyPattern.UnitOfWork.EFCore.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
+    {
+        private readonly IUserService userService;
+        private readonly ILogger logger;
+
+        public UserController(IUserService userService, ILogger<UserController> logger)
+        {
+            this.userService = userService;
+            this.logger = logger;
+        }
+
+        [HttpGet]
+        [Route("find-all")]
+        [Produces("application/json")]
+        public async Task<ActionResult<IEnumerable<User>>> FindAll()
+        {
+            try
+            {
+                var items = await userService
+                    .FindAllAsync();
+
+                logger.LogDebug("<{endPointName}>: found <{itemsCount}> items",
+                    MethodBase.GetCurrentMethod().ReflectedType.Name,
+                    items.Count());
+
+                return new OkObjectResult(items);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to process end-point <{functionName}>: <{errorMsg}>", MethodBase.GetCurrentMethod().ReflectedType.Name, ex);
+                return new ObjectResult($"Failed to process end-point <{MethodBase.GetCurrentMethod().ReflectedType.Name}>: {ex.Message}") { StatusCode = 500 };
+            }
+        }
+    }
+}

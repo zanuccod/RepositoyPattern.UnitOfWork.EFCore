@@ -6,8 +6,45 @@
 
   <ItemGroup>
     <None Remove="Controllers\" />
+    <None Remove="Microsoft.EntityFrameworkCore" />
+    <None Remove="Microsoft.EntityFrameworkCore.Tools" />
+    <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="Models\" />
+    <None Remove="Data\" />
+    <None Remove="Core\" />
+    <None Remove="Core\IRepositories\" />
+    <None Remove="Core\IUserRepository\" />
+    <None Remove="Core\Repository\" />
+    <None Remove="Services\" />
+    <None Remove="AutoMapper" />
+    <None Remove="AutoMapper.Contrib.Autofac.DependencyInjection" />
+    <None Remove="Mappers\" />
+    <None Remove="Dto\" />
+    <None Remove="Extensions\" />
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="Data\" />
+    <Folder Include="Core\" />
+    <Folder Include="Core\IRepositories\" />
+    <Folder Include="Core\Repository\" />
+    <Folder Include="Services\" />
+    <Folder Include="Mappers\" />
+    <Folder Include="Dto\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.8" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
   </ItemGroup>
 </Project>
