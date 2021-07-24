@@ -23,14 +23,19 @@ namespace RepositoyPattern.UnitOfWork.EFCore
         {
             services.AddControllers();
 
-            services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")),
-                ServiceLifetime.Scoped);
+            ConfigureApplicationDbContext(services);
 
             services.AddRepositoryReference();
             services.AddServicesReference();
             services.AddAutomapperReference();
             services.AddUnitOfWorkReference();
+        }
+
+        protected virtual void ConfigureApplicationDbContext(IServiceCollection services)
+        {
+            services.AddDbContext<ApplicationDbContext>(
+                options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")),
+                ServiceLifetime.Scoped);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

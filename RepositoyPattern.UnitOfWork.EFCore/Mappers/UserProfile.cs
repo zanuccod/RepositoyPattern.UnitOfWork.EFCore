@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using RepositoyPattern.UnitOfWork.EFCore.Dto;
 using RepositoyPattern.UnitOfWork.EFCore.Models;
 
@@ -9,7 +8,7 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Mappers
     {
         public UserProfile()
         {
-            CreateMap<UserDto, User>();
+            CreateMap<User, UserDto>();
         }
     }
 }

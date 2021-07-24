@@ -25,7 +25,6 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Controllers
 
         [HttpGet]
         [Route("find-all")]
-        [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<User>>> FindAll()
         {
             try

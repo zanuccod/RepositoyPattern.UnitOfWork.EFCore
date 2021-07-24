@@ -32,7 +32,7 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
             }
         }
 
-        public override async Task<bool> DeleteAsync(Guid id)
+        public override async Task<bool> DeleteAsync(int id)
         {
             var exist = await dbSet
                 .FirstOrDefaultAsync(x => x.Id.Equals(id));

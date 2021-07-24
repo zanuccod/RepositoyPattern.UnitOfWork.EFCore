@@ -34,11 +34,11 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Services
             return true;
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(int id)
         {
             await unitOfWork.Users.DeleteAsync(id);
             await unitOfWork.CompleteAsync();
-
+                
             return true;
         }
 
@@ -53,7 +53,7 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Services
             return mapper.Map<IEnumerable<UserDto>>(items);
         }
 
-        public async Task<UserDto> GetByIdAsync(Guid id)
+        public async Task<UserDto> GetByIdAsync(int id)
         {
             var item = await unitOfWork.Users.GetByIdAsync(id);
 

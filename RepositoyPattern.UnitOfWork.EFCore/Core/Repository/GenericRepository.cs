@@ -21,7 +21,7 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
             _logger = logger;
         }
 
-        public virtual async Task<T> GetByIdAsync(Guid id)
+        public virtual async Task<T> GetByIdAsync(int id)
             => await dbSet.FindAsync(id);
 
         public virtual async Task<bool> AddAsync(T entity)
@@ -33,7 +33,7 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
         public virtual async Task<IEnumerable<T>> FindAllAsync()
             => await dbSet.ToArrayAsync();
 
-        public virtual Task<bool> DeleteAsync(Guid id)
+        public virtual Task<bool> DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
