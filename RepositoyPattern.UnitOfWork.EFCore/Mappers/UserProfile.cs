@@ -9,6 +9,7 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Mappers
         public UserProfile()
         {
             CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RepositoyPattern.UnitOfWork.EFCore.Core;
 using RepositoyPattern.UnitOfWork.EFCore.Core.IRepositories;
-using RepositoyPattern.UnitOfWork.EFCore.Core.Repository;
 using RepositoyPattern.UnitOfWork.EFCore.Data;
 
 namespace RepositoyPattern.UnitOfWork.EFCore

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RepositoyPattern.UnitOfWork.EFCore.Models;
 using RepositoyPattern.UnitOfWork.EFCore.Services;
+using RepositoyPattern.UnitOfWork.EFCore.Dto;
 
 namespace RepositoyPattern.UnitOfWork.EFCore.Controllers
 {
@@ -37,6 +38,37 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Controllers
                     items.Count());
 
                 return new OkObjectResult(items);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to process end-point <{functionName}>: <{errorMsg}>", MethodBase.GetCurrentMethod().ReflectedType.Name, ex);
+                return new ObjectResult($"Failed to process end-point <{MethodBase.GetCurrentMethod().ReflectedType.Name}>: {ex.Message}") { StatusCode = 500 };
+            }
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<ActionResult<IEnumerable<User>>> Add(UserDto userDto)
+        {
+            try
+            {
+                var item = await userService
+                    .AddAsync(userDto);
+
+                if (item)
+                {
+                    logger.LogDebug("<{endPointName}>: Added <{userDto}>",
+                        MethodBase.GetCurrentMethod().ReflectedType.Name,
+                        item);
+                }
+                else
+                {
+                    logger.LogDebug("<{endPointName}>: Unable to add <{userDto}>",
+                        MethodBase.GetCurrentMethod().ReflectedType.Name,
+                        item);
+                }
+
+                return new OkResult();
             }
             catch (Exception ex)
             {

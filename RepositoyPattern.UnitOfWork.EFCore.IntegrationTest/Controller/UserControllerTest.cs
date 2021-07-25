@@ -14,6 +14,7 @@ using Xunit;
 using RepositoyPattern.UnitOfWork.EFCore.Models;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace RepositoyPattern.UnitOfWork.EFCore.IntegrationTest.Controller
 {
@@ -23,14 +24,13 @@ namespace RepositoyPattern.UnitOfWork.EFCore.IntegrationTest.Controller
         private readonly string ServerBaseAddress = "https://localhost:5001";
 
         private ApplicationDbContext applicationDbContext;
-
-
+        private readonly DbContextOptions dbContextOption;
         public UserControllerTest()
         {
-            var options = new DbContextOptionsBuilder()
+            dbContextOption = new DbContextOptionsBuilder()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
-            applicationDbContext = new ApplicationDbContext(options);
+            applicationDbContext = new ApplicationDbContext(dbContextOption);
 
             var server = new TestServer(new WebHostBuilder()
                     .UseStartup<TestStartup>()
@@ -86,6 +86,36 @@ namespace RepositoyPattern.UnitOfWork.EFCore.IntegrationTest.Controller
             Assert.Equal(user.FirstName, returnedList.First().FirstName);
             Assert.Equal(user.LastName, returnedList.First().LastName);
             Assert.Equal(user.Email, returnedList.First().Email);
+        }
+
+        [Fact]
+        public async Task Add_ShouldAddNewUser()
+        {
+            // Arrange
+            var user = new User()
+            {
+                Id = 1,
+                FirstName = "Pippo",
+                LastName = "Paperino",
+                Email = "pippo.paperino@disney.it"
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(user));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            // Act
+            var response = await client.PostAsync(string.Join("/", ServerBaseAddress, "api/user/add"), content);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            // because the dbContext was disposed after the end of the call (scoped)
+            applicationDbContext = new ApplicationDbContext(dbContextOption);
+            var items = await applicationDbContext.Users.ToArrayAsync();
+            Assert.Single(items);
+            Assert.Equal(user.FirstName, items.First().FirstName);
+            Assert.Equal(user.LastName, items.First().LastName);
+            Assert.Equal(user.Email, items.First().Email);
         }
     }
 }
