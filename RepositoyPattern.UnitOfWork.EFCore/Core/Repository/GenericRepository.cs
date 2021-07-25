@@ -24,10 +24,10 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
         public virtual async Task<T> GetByIdAsync(int id)
             => await dbSet.FindAsync(id);
 
-        public virtual async Task<bool> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
-            await dbSet.AddAsync(entity);
-            return true;
+            var item = await dbSet.AddAsync(entity);
+            return item.Entity;
         }
 
         public virtual async Task<IEnumerable<T>> FindAllAsync()
@@ -38,7 +38,7 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
             throw new NotImplementedException();
         }
 
-        public virtual Task<bool> UpdateAsync(T entity)
+        public virtual Task<T> UpdateAsync(T entity)
         {
             throw new NotImplementedException();
         }

@@ -14,13 +14,14 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
             :base(context, logger)
         { }
 
-        public override async Task<bool> UpdateAsync(User entity)
+        public override async Task<User> UpdateAsync(User entity)
         {
             var existingUser = await dbSet
                 .FirstOrDefaultAsync(x => x.Id.Equals(entity.Id));
 
             if (existingUser == null)
             {
+
                 return await AddAsync(entity);
             }
             else
@@ -28,7 +29,7 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
                 existingUser.FirstName = entity.FirstName;
                 existingUser.LastName = entity.LastName;
                 existingUser.Email = entity.Email;
-                return true;
+                return existingUser;
             }
         }
 

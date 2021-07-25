@@ -8,8 +8,8 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.IRepositories
     {
         Task<IEnumerable<T>> FindAllAsync();
         Task<T> GetByIdAsync(int id);
-        Task<bool> AddAsync(T entity);
+        Task<T> AddAsync(T entity);
         Task<bool> DeleteAsync(int id);
-        Task<bool> UpdateAsync(T entity);
+        Task<T> UpdateAsync(T entity);
     }
 }

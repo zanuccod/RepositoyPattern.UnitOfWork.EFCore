@@ -55,20 +55,11 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Controllers
                 var item = await userService
                     .AddAsync(userDto);
 
-                if (item)
-                {
-                    logger.LogDebug("<{endPointName}>: Added <{userDto}>",
+                logger.LogDebug("<{endPointName}>: Added <{userDto}>",
                         MethodBase.GetCurrentMethod().ReflectedType.Name,
                         item);
-                }
-                else
-                {
-                    logger.LogDebug("<{endPointName}>: Unable to add <{userDto}>",
-                        MethodBase.GetCurrentMethod().ReflectedType.Name,
-                        item);
-                }
 
-                return new OkResult();
+                return new OkObjectResult(item);
             }
             catch (Exception ex)
             {

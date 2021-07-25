@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
@@ -94,7 +93,6 @@ namespace RepositoyPattern.UnitOfWork.EFCore.IntegrationTest.Controller
             // Arrange
             var user = new User()
             {
-                Id = 1,
                 FirstName = "Pippo",
                 LastName = "Paperino",
                 Email = "pippo.paperino@disney.it"
@@ -109,6 +107,14 @@ namespace RepositoyPattern.UnitOfWork.EFCore.IntegrationTest.Controller
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
+            // returned item is right and Id is not null
+            var insertedItem = JsonConvert.DeserializeObject<UserDto>(await response.Content.ReadAsStringAsync());
+            Assert.Equal(1, insertedItem.Id);
+            Assert.Equal(user.FirstName, insertedItem.FirstName);
+            Assert.Equal(user.LastName, insertedItem.LastName);
+            Assert.Equal(user.Email, insertedItem.Email);
+
+            // inserted item is really inserted in the database
             // because the dbContext was disposed after the end of the call (scoped)
             applicationDbContext = new ApplicationDbContext(dbContextOption);
             var items = await applicationDbContext.Users.ToArrayAsync();

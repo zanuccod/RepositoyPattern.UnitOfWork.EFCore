@@ -24,14 +24,14 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Services
             this.logger = logger;
         }
 
-        public async Task<bool> AddAsync(UserDto entity)
+        public async Task<UserDto> AddAsync(UserDto entity)
         {
             var item = mapper.Map<User>(entity);
 
-            await unitOfWork.Users.AddAsync(item);
+            var insertedItem = await unitOfWork.Users.AddAsync(item);
             await unitOfWork.CompleteAsync();
 
-            return true;
+            return mapper.Map<UserDto>(insertedItem);
         }
 
         public async Task<bool> DeleteAsync(int id)
@@ -64,14 +64,14 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Services
             return mapper.Map<UserDto>(item);
         }
 
-        public async Task<bool> UpdateAsync(UserDto entity)
+        public async Task<UserDto> UpdateAsync(UserDto entity)
         {
             var item = mapper.Map<User>(entity);
 
-            await unitOfWork.Users.UpdateAsync(item);
+            var updatedItem = await unitOfWork.Users.UpdateAsync(item);
             await unitOfWork.CompleteAsync();
 
-            return true;
+            return mapper.Map<UserDto>(updatedItem);
         }
     }
 }
