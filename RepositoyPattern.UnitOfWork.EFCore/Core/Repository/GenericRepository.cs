@@ -5,10 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RepositoyPattern.UnitOfWork.EFCore.Core.IRepositories;
 using RepositoyPattern.UnitOfWork.EFCore.Data;
+using RepositoyPattern.UnitOfWork.EFCore.Models;
 
 namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
 {
-    public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
+    public abstract class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         protected ApplicationDbContext context;
         internal DbSet<T> dbSet;
@@ -33,14 +34,30 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
         public virtual async Task<IEnumerable<T>> FindAllAsync()
             => await dbSet.ToArrayAsync();
 
-        public virtual Task<bool> DeleteAsync(int id)
+        public async virtual Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var exist = await GetByIdAsync(id);
+            if (exist == null)
+            {
+                return false;
+            }
+
+            await Task.Run(() => dbSet.Remove(exist));
+            return true;
         }
 
-        public virtual Task<T> UpdateAsync(T entity)
+        public async virtual Task<T> UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            var tmp = await GetByIdAsync(entity.Id);
+            if (tmp == null)
+            {
+                await AddAsync(entity);
+            }
+            else
+            {
+                tmp = entity;
+            }
+            return tmp;
         }
     }
 }

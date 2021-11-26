@@ -26,9 +26,9 @@ namespace RepositoyPattern.UnitOfWork.EFCore
             ConfigureApplicationDbContext(services);
 
             services.AddRepositoryReference();
+            services.AddUnitOfWorkReference();
             services.AddServicesReference();
             services.AddAutomapperReference();
-            services.AddUnitOfWorkReference();
         }
 
         protected virtual void ConfigureApplicationDbContext(IServiceCollection services)

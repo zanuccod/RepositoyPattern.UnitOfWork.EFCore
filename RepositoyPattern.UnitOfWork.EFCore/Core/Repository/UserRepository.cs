@@ -13,40 +13,5 @@ namespace RepositoyPattern.UnitOfWork.EFCore.Core.Repository
         public UserRepository(ApplicationDbContext context, ILogger<UserRepository> logger)
             :base(context, logger)
         { }
-
-        public override async Task<User> UpdateAsync(User entity)
-        {
-            var existingUser = await dbSet
-                .FirstOrDefaultAsync(x => x.Id.Equals(entity.Id));
-
-            if (existingUser == null)
-            {
-
-                return await AddAsync(entity);
-            }
-            else
-            {
-                existingUser.FirstName = entity.FirstName;
-                existingUser.LastName = entity.LastName;
-                existingUser.Email = entity.Email;
-                return existingUser;
-            }
-        }
-
-        public override async Task<bool> DeleteAsync(int id)
-        {
-            var exist = await dbSet
-                .FirstOrDefaultAsync(x => x.Id.Equals(id));
-
-            if (exist == null)
-            {
-                return false;
-            }
-            else
-            {
-                dbSet.Remove(exist);
-                return true;
-            }
-        }
     }
 }

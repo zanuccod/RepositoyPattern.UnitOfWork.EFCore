@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoyPattern.UnitOfWork
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoyPattern.UnitOfWork.EFCore.IntegrationTest", "RepositoyPattern.UnitOfWork.EFCore.IntegrationTest\RepositoyPattern.UnitOfWork.EFCore.IntegrationTest.csproj", "{FD976055-E20E-4BC4-B87F-35128A3B732E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoyPattern.UnitOfWork.EFCore.Tests", "RepositoyPattern.UnitOfWork.EFCore.Tests\RepositoyPattern.UnitOfWork.EFCore.Tests.csproj", "{3A1518DB-2777-4D31-91F5-8D48DA9ACE17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi della soluzione", "Elementi della soluzione", "{0C5392C8-282D-4A02-92D7-E52400376A61}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +28,10 @@ Global
 		{FD976055-E20E-4BC4-B87F-35128A3B732E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD976055-E20E-4BC4-B87F-35128A3B732E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD976055-E20E-4BC4-B87F-35128A3B732E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A1518DB-2777-4D31-91F5-8D48DA9ACE17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A1518DB-2777-4D31-91F5-8D48DA9ACE17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A1518DB-2777-4D31-91F5-8D48DA9ACE17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A1518DB-2777-4D31-91F5-8D48DA9ACE17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
